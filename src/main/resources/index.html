@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Secure Video Player</title>
+    <style>
+        .video-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .controls {
+            margin: 20px 0;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .chunk-info {
+            margin: 10px 0;
+            color: #666;
+            font-family: monospace;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 20px;
+            color: #007bff;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 4px;
+            background: #f0f0f0;
+            margin: 10px 0;
+        }
+
+        .progress {
+            height: 100%;
+            background: #007bff;
+            width: 0%;
+            transition: width 0.3s;
+        }
+
+        .error {
+            color: #dc3545;
+            padding: 10px;
+            background: #f8d7da;
+            border-radius: 4px;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+<div class="video-container">
+    <h1>Secure Video Player</h1>
+
+    <div class="controls">
+        <input type="file" id="videoUpload" accept="video/*">
+        <input type="text" id="videoIdInput" placeholder="Or enter video ID">
+        <button onclick="loadVideo()">Load Video</button>
+        <button onclick="clearPlayer()">Clear</button>
+    </div>
+
+    <div class="chunk-info">
+        Chunk: <span id="currentChunk">-</span> / <span id="totalChunks">-</span> |
+        Loaded: <span id="loadedChunks">0</span> chunks
+    </div>
+
+    <div class="progress-bar">
+        <div class="progress" id="loadProgress"></div>
+    </div>
+
+    <div id="errorMessage" class="error" style="display: none;"></div>
+
+    <video id="videoPlayer" controls width="100%" style="display: none;" autoplay>
+        Your browser does not support the video tag.
+    </video>
+
+    <div id="loading" class="loading">
+        Loading video chunks...
+    </div>
+</div>
+
+<script>
+    class SecureVideoPlayer {
+        constructor() {
+            this.videoPlayer = document.getElementById('videoPlayer');
+            this.currentChunk = 0;
+            this.totalChunks = 0;
+            this.videoId = null;
+            this.chunkBuffers = new Map();
+            this.isLoading = false;
+            this.chunkQueue = [];
+            this.maxConcurrentLoads = 3;
+            this.currentLoads = 0;
+        }
+
+        async loadVideo(videoId) {
+            try {
+                this.showLoading();
+                this.hideError();
+                this.videoId = videoId;
+
+                // Clear previous data
+                this.chunkBuffers.clear();
+                this.currentChunk = 0;
+
+                // Get video metadata
+                const metadata = await this.fetchMetadata(videoId);
+                this.totalChunks = metadata.totalChunks || 1;
+                this.updateChunkInfo();
+                this.updateProgress(0);
+
+                // Load first few chunks
+                await this.loadInitialChunks();
+
+                this.videoPlayer.style.display = 'block';
+                this.hideLoading();
+
+            } catch (error) {
+                this.showError('Error loading video: ' + error.message);
+                this.hideLoading();
+            }
+        }
+
+        async fetchMetadata(videoId) {
+            const response = await fetch(`http://localhost:8080/api/video/metadata/${videoId}`);
+            if (!response.ok) {
+                throw new Error('Failed to fetch video metadata');
+            }
+            return await response.json();
+        }
+
+        async loadInitialChunks() {
+            const chunksToLoad = Math.min(3, this.totalChunks);
+            const loadPromises = [];
+
+            for (let i = 0; i < chunksToLoad; i++) {
+                loadPromises.push(this.loadChunk(i));
+            }
+
+            await Promise.all(loadPromises);
+
+            // Start with first chunk
+            console.log("has chunkBuffers: " + this.chunkBuffers.has(0))
+            if (this.chunkBuffers.has(0)) {
+                this.playChunk(0);
+            }
+        }
+
+        async loadChunk(chunkIndex) {
+            console.log( "chunkIndex "+chunkIndex , "totalChunks " + this.totalChunks)
+            if (this.chunkBuffers.has(chunkIndex) || chunkIndex < 0 || chunkIndex >= this.totalChunks) {
+                return;
+            }
+
+            try {
+                const chunkData = await this.fetchChunk(chunkIndex);
+                const blob = new Blob([chunkData], { type: 'video/mp4' });
+                const url = URL.createObjectURL(blob);
+                this.chunkBuffers.set(chunkIndex, url);
+
+                this.updateLoadedChunks();
+                this.updateProgress((this.chunkBuffers.size / this.totalChunks) * 100);
+
+                // Preload next chunks
+                this.preloadAdjacentChunks(chunkIndex);
+
+            } catch (error) {
+                console.error(`Error loading chunk ${chunkIndex}:`, error);
+                throw error;
+            }
+        }
+
+        async fetchChunk(chunkIndex) {
+        console.log("chunk index " + chunkIndex)
+            const response = await fetch(`http://localhost:8080/api/video/chunk/${this.videoId}/${chunkIndex}`);
+            if (!response.ok) {
+                throw new Error(`Failed to fetch chunk ${chunkIndex}`);
+            }
+            return await response.arrayBuffer();
+        }
+
+        playChunk(chunkIndex) {
+            if (this.chunkBuffers.has(chunkIndex)) {
+            console.log("playchunk is calling " + chunkIndex)
+                const chunkUrl = this.chunkBuffers.get(chunkIndex);
+                this.videoPlayer.src = chunkUrl;
+                this.currentChunk = chunkIndex;
+                this.updateChunkInfo();
+            }
+        }
+
+        preloadAdjacentChunks(currentChunk) {
+            // Preload next 2 chunks
+            for (let i = 1; i <= 2; i++) {
+                console.log("pre loading index: " + i);
+                const nextChunk = currentChunk + i;
+                if (nextChunk < this.totalChunks && !this.chunkBuffers.has(nextChunk)) {
+                    this.loadChunk(nextChunk).catch(console.error);
+                }
+            }
+        }
+
+        updateChunkInfo() {
+            document.getElementById('currentChunk').textContent = this.currentChunk + 1;
+            document.getElementById('totalChunks').textContent = this.totalChunks;
+        }
+
+        updateLoadedChunks() {
+            document.getElementById('loadedChunks').textContent = this.chunkBuffers.size;
+        }
+
+        updateProgress(percent) {
+            document.getElementById('loadProgress').style.width = percent + '%';
+        }
+
+        showLoading() {
+            document.getElementById('loading').style.display = 'block';
+        }
+
+        hideLoading() {
+            document.getElementById('loading').style.display = 'none';
+        }
+
+        showError(message) {
+            const errorElement = document.getElementById('errorMessage');
+            errorElement.textContent = message;
+            errorElement.style.display = 'block';
+        }
+
+        hideError() {
+            document.getElementById('errorMessage').style.display = 'none';
+        }
+
+        // Clean up
+        destroy() {
+            this.chunkBuffers.forEach(url => URL.revokeObjectURL(url));
+            this.chunkBuffers.clear();
+            this.videoPlayer.style.display = 'none';
+            this.hideError();
+        }
+    }
+
+    // Initialize player
+    const player = new SecureVideoPlayer();
+
+    // Global functions
+    async function loadVideo() {
+        const fileInput = document.getElementById('videoUpload');
+        const videoIdInput = document.getElementById('videoIdInput');
+
+        if (fileInput.files.length > 0) {
+            await uploadVideo(fileInput.files[0]);
+        } else if (videoIdInput.value) {
+            await player.loadVideo(videoIdInput.value);
+        } else {
+            alert('Please select a video file or enter a video ID');
+        }
+    }
+
+    function clearPlayer() {
+        player.destroy();
+        document.getElementById('videoUpload').value = '';
+        document.getElementById('videoIdInput').value = '';
+        document.getElementById('currentChunk').textContent = '-';
+        document.getElementById('totalChunks').textContent = '-';
+        document.getElementById('loadedChunks').textContent = '0';
+        document.getElementById('loadProgress').style.width = '0%';
+    }
+
+    async function uploadVideo(file) {
+        const formData = new FormData();
+        formData.append('file', file);
+
+        try {
+            player.showLoading();
+            const response = await fetch('http://localhost:8080/api/video/upload', {
+                method: 'POST',
+                body: formData
+            });
+
+            const result = await response.json();
+
+            if (response.ok) {
+                alert(`Video uploaded successfully! Video ID: ${result.videoId}`);
+                document.getElementById('videoIdInput').value = result.videoId;
+                await player.loadVideo(result.videoId);
+            } else {
+                throw new Error(result.error || 'Upload failed');
+            }
+        } catch (error) {
+            player.showError('Upload failed: ' + error.message);
+        } finally {
+            player.hideLoading();
+        }
+    }
+
+    // Event listeners
+    document.getElementById('videoUpload').addEventListener('change', function() {
+        document.getElementById('videoIdInput').value = '';
+    });
+
+    document.getElementById('videoIdInput').addEventListener('input', function() {
+        document.getElementById('videoUpload').value = '';
+    });
+
+    // Handle video end to play next chunk
+    player.videoPlayer.addEventListener('ended', function() {
+        const nextChunk = player.currentChunk + 1;
+        console.log("player ended- next chunk: " + nextChunk + " player.totalChunks: " + player.totalChunks)
+        if (nextChunk < player.totalChunks) {
+            player.playChunk(nextChunk);
+        }
+    });
+</script>
+</body>
+</html>
