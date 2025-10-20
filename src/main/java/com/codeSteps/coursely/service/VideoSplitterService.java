@@ -20,7 +20,8 @@ public class VideoSplitterService {
     @Value("${video.storage.path:./videos/}")
     private String storagePath;
 
-    public String splitVideo(MultipartFile file) throws IOException {
+
+    public String splitVideo(MultipartFile file) throws Exception {
         String videoId = UUID.randomUUID().toString();
         String originalFileName = file.getOriginalFilename();
 
@@ -28,54 +29,101 @@ public class VideoSplitterService {
         File videoDir = new File(storagePath + videoId);
         videoDir.mkdirs();
 
-        System.out.println("Video upload starting to path: " + storagePath +"/"+ videoId);
+        System.out.println("Video upload starting to path: " + storagePath + "/" + videoId);
+
         // Save original file
         String originalFilePath = storagePath + videoId + "/original.mp4";
         file.transferTo(new File(originalFilePath));
 
-        System.out.println("Video upload finished: " + storagePath +"/"+ videoId);
+        System.out.println("Video upload finished: " + storagePath + "/" + videoId);
 
-        // For pure Java, we'll use byte-range splitting (simple but effective)
-        // In production, you might want to use a cloud service or external processor
-        FileInputStream fileReader = new FileInputStream(originalFilePath);
-        if (fileReader.available() == 0) {
-            System.out.println("file is empty");
-        }
-        byte[] fileBytes = fileReader.readAllBytes();
-        int chunkSize = 1024 * 1024; // 1MB chunks (adjust based on your needs)
-        int totalChunks = (int) Math.ceil((double) fileBytes.length / chunkSize);
-        splitVideoBytes(fileBytes, videoId, chunkSize, totalChunks);
+        // For testing: create mock MP4 chunks (just copy the original file multiple times)
+        createMockVideoChunks(originalFilePath, videoId);
 
         // Save metadata
-        saveVideoMetadata(videoId, originalFileName, fileBytes.length,chunkSize,totalChunks);
+        saveVideoMetadata(videoId, originalFileName, 5); // Mock 5 chunks
 
         return videoId;
     }
 
-    private void splitVideoBytes(byte[] videoBytes, String videoId,int chunkSize, int totalChunks) throws IOException {
-        // Simple byte-based splitting (adjust chunk size as needed)
 
-        System.out.println("Total chunks: " + totalChunks);
-        System.out.println("Start chunking ");
-        for (int i = 0; i < totalChunks; i++) {
-            int start = i * chunkSize;
-            int end = Math.min(start + chunkSize, videoBytes.length);
-            byte[] chunk = Arrays.copyOfRange(videoBytes, start, end);
+    private void createMockVideoChunks(String originalFilePath, String videoId) throws IOException {
+        // Read the original video file
+        byte[] originalBytes = Files.readAllBytes(Paths.get(originalFilePath));
 
-            String chunkPath = storagePath + videoId + "/chunk_" + i + ".dat";
-            System.out.println("Chunk upload starting to path: " + storagePath +"/"+ chunkPath);
-            Files.write(Paths.get(chunkPath), chunk);
-            System.out.println("Chunk upload finished: " + storagePath +"/"+ chunkPath);
+        // Create 5 identical chunks for testing (in real scenario, use FFmpeg)
+        for (int i = 0; i < 5; i++) {
+            String chunkPath = storagePath + videoId + "/chunk_" + i + ".mp4"; // Use .mp4 extension
+            Files.write(Paths.get(chunkPath), originalBytes);
+            System.out.println("Created mock chunk " + i + " at " + chunkPath);
         }
     }
 
-    private void saveVideoMetadata(String videoId, String fileName, long fileSize,int chunkSize, int totalChunks) {
+    private int splitVideoWithFFmpeg(String inputPath, String videoId) throws Exception {
+        // First, get video duration
+        long duration = getVideoDuration(inputPath);
+        int totalChunks = (int) Math.ceil((double) duration / chunkDuration);
+
+        System.out.println("Video duration: " + duration + "s, Total chunks: " + totalChunks);
+
+        // Split video using FFmpeg
+        for (int i = 0; i < totalChunks; i++) {
+            int startTime = i * chunkDuration;
+            String outputPath = storagePath + videoId + "/chunk_" + i + ".mp4";
+
+            ProcessBuilder pb = new ProcessBuilder(
+                    "ffmpeg",
+                    "-ss", String.valueOf(startTime),
+                    "-i", inputPath,
+                    "-t", String.valueOf(chunkDuration),
+                    "-c", "copy", // Copy without re-encoding
+                    "-avoid_negative_ts", "make_zero",
+                    outputPath
+            );
+
+            Process process = pb.start();
+            int exitCode = process.waitFor();
+
+            if (exitCode == 0) {
+                System.out.println("Created chunk " + i + " at " + outputPath);
+            } else {
+                throw new RuntimeException("FFmpeg failed for chunk " + i);
+            }
+        }
+
+        return totalChunks;
+    }
+
+    private long getVideoDuration(String filePath) throws Exception {
+        ProcessBuilder pb = new ProcessBuilder(
+                "ffmpeg", "-i", filePath, "-f", "null", "-"
+        );
+
+        Process process = pb.start();
+        String errorOutput = new String(process.getErrorStream().readAllBytes());
+        process.waitFor();
+
+        // Parse duration from FFmpeg output
+        java.util.regex.Pattern pattern = java.util.regex.Pattern.compile("Duration: (\\d+):(\\d+):(\\d+)\\.(\\d+)");
+        java.util.regex.Matcher matcher = pattern.matcher(errorOutput);
+
+        if (matcher.find()) {
+            int hours = Integer.parseInt(matcher.group(1));
+            int minutes = Integer.parseInt(matcher.group(2));
+            int seconds = Integer.parseInt(matcher.group(3));
+            return hours * 3600 + minutes * 60 + seconds;
+        }
+
+        throw new RuntimeException("Could not determine video duration");
+    }
+
+
+    private void saveVideoMetadata(String videoId, String fileName, int totalChunks) {
         Map<String, Object> metadata = new HashMap<>();
         metadata.put("videoId", videoId);
         metadata.put("fileName", fileName);
-        metadata.put("fileSize", fileSize);
-        metadata.put("chunkSize", chunkSize);
         metadata.put("totalChunks", totalChunks);
+        metadata.put("chunkDuration", chunkDuration);
         metadata.put("createdAt", new Date());
 
         String metadataPath = storagePath + videoId + "/metadata.json";
@@ -87,15 +135,16 @@ public class VideoSplitterService {
     }
 
     public byte[] getVideoChunk(String videoId, int chunkIndex) throws Exception {
-        String chunkPath = storagePath + videoId + "/chunk_" + chunkIndex + ".dat";
+        String chunkPath = storagePath + videoId + "/chunk_" + chunkIndex + ".mp4"; // Changed to .mp4
         File chunkFile = new File(chunkPath);
 
         if (!chunkFile.exists()) {
-            throw new FileNotFoundException("Chunk not found");
+            throw new FileNotFoundException("Chunk not found: " + chunkPath);
         }
 
         return Files.readAllBytes(chunkFile.toPath());
     }
+
 
     public Map getVideoMetadata(String videoId) throws Exception {
         String metadataPath = storagePath + videoId + "/metadata.json";
@@ -104,7 +153,8 @@ public class VideoSplitterService {
         if (!metadataFile.exists()) {
             throw new FileNotFoundException("Metadata not found");
         }
-        System.out.println("Metadata read starting to path: " + storagePath +"/"+ metadataPath);
+
+        System.out.println("Metadata read starting to path: " + storagePath + "/" + metadataPath);
         return new ObjectMapper().readValue(metadataFile, Map.class);
     }
 }

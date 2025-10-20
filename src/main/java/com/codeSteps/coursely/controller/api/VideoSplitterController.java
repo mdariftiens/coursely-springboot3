@@ -28,7 +28,7 @@ public class VideoSplitterController {
             response.put("message", "Video uploaded and split successfully");
             return ResponseEntity.ok(response);
         } catch (Exception e) {
-            return ResponseEntity.status(500).body(Map.of("error", Arrays.toString(e.getStackTrace())));
+            return ResponseEntity.status(500).body(Map.of("error", e.getMessage() + " - " + Arrays.toString(e.getStackTrace())));
         }
     }
 
