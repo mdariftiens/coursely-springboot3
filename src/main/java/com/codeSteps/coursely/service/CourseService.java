@@ -2,33 +2,42 @@ package com.codeSteps.coursely.service;
 
 import com.codeSteps.coursely.entity.Course;
 import com.codeSteps.coursely.repository.CourseRepository;
-import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties;
-import org.springframework.data.domain.Page;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
+@Service
 public class CourseService {
-
+    @Autowired
     private CourseRepository courseRepository;
 
-    public CourseService(CourseRepository courseRepository) {
-        this.courseRepository = courseRepository;
+    public List<Course> getAllCourses() {
+        List<Course> courses  = courseRepository.findAll();
+
+        courses.forEach(c -> System.out.println(c));
+        return courses;
     }
 
-    public Optional<Course> getCourse(Long id) {
-        return courseRepository.findById(id);
+    public Course getCourseById(Long id) {
+        return courseRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Course not found"));
     }
 
-    public List<Course> getCourses() {
-        return courseRepository.findAll();
+    public Course createCourse(Course course) {
+        return courseRepository.save(course);
     }
-    public Optional<Course> getCourseByName(String name) {
-        return courseRepository.findByName(name);
-    }
-    public Page<Course> getCourses(String keyword, SpringDataWebProperties.Pageable pageable) {
-        if (keyword != null && !keyword.isEmpty())
-            return courseRepository.findByNameContainingIgnoreCase(keyword, pageable);
-        return null;
+
+//    public Course updateCourse(Long id, Course updated) {
+//        Course course = getCourseById(id);
+//        course.setTitle(updated.getTitle());
+//        course.setDescription(updated.getDescription());
+//        course.setPrice(updated.getPrice());
+//        //course.setThumbnail(updated.getThumbnail());
+//        return courseRepository.save(course);
+//    }
+
+    public void deleteCourse(Long id) {
+        courseRepository.deleteById(id);
     }
 }
