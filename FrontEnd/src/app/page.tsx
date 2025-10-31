@@ -1034,14 +1034,15 @@ export default function Home() {
 
             {/* Main Content */}
 
-            <div className="container relative flex flex-col justify-center items-center text-center lg:py-24 py-5 mt-5 px-4">
+            <div className="relative flex flex-col justify-center items-center text-center lg:py-24 py-5 mt-5 px-4">
               <Image
                 src="/assets/images/adocasts-plus-white-40.png"
                 alt="asocasts"
-                width={40}
-                height={40}
+                width={150}
+                height={50}
+                className="mb-4"
               />
-              <h1 className="text-xl font-semibold text-[#4E45E2] uppercase">Launch Into AdonisJS</h1>
+              <h1 className="text-xl font-semibold text-[#efeff8] uppercase">Launch Into AdonisJS</h1>
               <div className="bg-[#161749] p-4 rounded-md mt-5 w-full max-w-[800px] mb-8 flex items-center justify-center">
                 <div className="grid sm:grid-cols-1 lg:grid-cols-2 gap-5">
                   <div className="space-y-4 sm:text-right">
@@ -1068,7 +1069,7 @@ export default function Home() {
                 </div>
               </div>
 
-              <div className="relative z-50 flex justify-center items-center min-h-screen">
+              <div className=" container relative z-50 flex justify-center items-center min-h-screen">
                 <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 bg-[#181742] rounded-md border-4 border-[#242551] p-10">
                   <div className="pt-12 pb-20 pl-10 pr-10">
                     <Image

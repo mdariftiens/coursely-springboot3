@@ -1,6 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import React from "react"
+import { IoSettingsOutline } from "react-icons/io5";
+import { IoIosSearch } from "react-icons/io";
+
 
 const Header = () => {
     return (
@@ -9,13 +12,15 @@ const Header = () => {
             <nav className="navbar w-full bg-[rgb(15_23_42)] mx-auto px-3 lg:px-5 py-3 text-[#fff]">
                 <div className="container mx-auto flex items-center justify-between gap-5">
                     <div className="">
-                        <Image
-                            src="/assets/images/logo-white.svg"
-                            alt="logo"
-                            width={144}
-                            height={40}
-                            className="w-36"
-                        />
+                        <Link href="/">
+                            <Image
+                                src="/assets/images/logo-white.svg"
+                                alt="logo"
+                                width={144}
+                                height={40}
+                                className="w-36"
+                            />
+                        </Link>
                     </div>
                     <div>
                         <nav>
@@ -31,11 +36,11 @@ const Header = () => {
                     <div className="flex items-center gap-3">
                         <div
                             className="bg-[#1E293B] px-3 py-2 text-white rounded-lg hover:bg-[#334155] hover:cursor-pointer transition duration-500 ease-in-out">
-                            <i className="fa-solid fa-magnifying-glass"></i>
+                            <IoSettingsOutline />
                         </div>
                         <div
                             className="bg-[#1E293B] px-3 py-2 text-blck rounded-lg hover:bg-[#334155] hover:cursor-pointer transition duration-500 ease-in-out">
-                            <i className="fa-solid fa-sun"></i>
+                            <IoIosSearch />
                         </div>
                         <div className="hidden lg:flex gap-3 text-sm">
                             <button
@@ -45,7 +50,7 @@ const Header = () => {
                     </div>
                 </div>
             </nav>
-        </header>
+        </header >
     )
 };
 

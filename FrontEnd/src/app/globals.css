@@ -8,7 +8,11 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
+
+  /* Use your Inter font here */
+  --font-sans: var(--font-inter);
+
+  /* Optional if you have mono font */
   --font-mono: var(--font-geist-mono);
 }
 
@@ -20,7 +24,7 @@
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  /* background: var(--background);*/
+  /* color: var(--foreground); */
+  /* font-family: Arial, Helvetica, sans-serif; */
 }
