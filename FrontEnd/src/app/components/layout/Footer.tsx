@@ -9,50 +9,51 @@ const Footer = () => {
                 <footer className="container mx-auto px-3 lg:px-5 pt-10 pb-3">
                     <div className="flex items-center justify-between gap-5 text-[#94A3B8]">
                         <div>
-                            <h1 className="text-[#CBD5E1] uppercase text-xl font-semibold mb-2">Content</h1>
-                            <ul className="hover:cursor-pointer py-1 space-y-3">
-                                <li className="hover:text-[#fff]"><a href="#">Series</a></li>
-                                <li className="hover:text-[#fff]"><a href="#">Topics</a></li>
-                                <li className="hover:text-[#fff]"><a href="#">Lessons</a></li>
-                                <li className="hover:text-[#fff]"><a href="#">Livestreams</a></li>
+                            <h1 className="text-[#CBD5E1] uppercase text-sm font-semibold mb-2">Content</h1>
+                            <ul className="hover:cursor-pointer py-1 space-y-2 text-xs">
+                                <li className="hover:text-white"><a href="#">Series</a></li>
+                                <li className="hover:text-white"><a href="#">Topics</a></li>
+                                <li className="hover:text-white"><a href="#">Lessons</a></li>
+                                <li className="hover:text-white"><a href="#">Livestreams</a></li>
                             </ul>
                         </div>
                         <div>
-                            <ul className="hover:cursor-pointer py-1 space-y-3">
-                                <li className="hover:text-[#fff]"><a href="#">Blog</a></li>
-                                <li className="hover:text-[#fff]"><a href="#">Snippets</a></li>
-                                <li className="hover:text-[#fff]"><a href="#">Schedule</a></li>
-                                <li className="hover:text-[#fff]"><a href="#">Requests</a></li>
+                            <h1 className="text-[#CBD5E1] uppercase text-xl font-semibold mb-2"></h1>
+                            <ul className="hover:cursor-pointer py-1 space-y-2 text-xs">
+                                <li className="hover:text-white"><a href="#">Blog</a></li>
+                                <li className="hover:text-white"><a href="#">Snippets</a></li>
+                                <li className="hover:text-white"><a href="#">Schedule</a></li>
+                                <li className="hover:text-white"><a href="#">Requests</a></li>
                             </ul>
                         </div>
                         <div>
-                            <h1 className="text-[#CBD5E1] uppercase text-xl font-semibold mb-2">Company</h1>
-                            <ul className="hover:cursor-pointer py-1 space-y-3">
-                                <li className="hover:text-[#fff]"><a href="#">Credits</a></li>
-                                <li className="hover:text-[#fff]"><a href="#">Contact Us</a></li>
-                                <li className="hover:text-[#fff]"><a href="#">Pricing</a></li>
-                                <li className="hover:text-[#fff]"><a href="#">Sitemap</a></li>
+                            <h1 className="text-[#CBD5E1] uppercase text-sm font-semibold mb-2">Company</h1>
+                            <ul className="hover:cursor-pointer py-1 space-y-2 text-xs">
+                                <li className="hover:text-white"><a href="#">Credits</a></li>
+                                <li className="hover:text-white"><a href="#">Contact Us</a></li>
+                                <li className="hover:text-white"><a href="#">Pricing</a></li>
+                                <li className="hover:text-white"><a href="#">Sitemap</a></li>
                             </ul>
                         </div>
                         <div>
-                            <h1 className="text-[#CBD5E1] uppercase text-xl font-semibold mb-2">Legal</h1>
-                            <ul className="hover:cursor-pointer py-1 space-y-3">
-                                <li className="hover:text-[#fff]"><a href="#">Cookies</a></li>
-                                <li className="hover:text-[#fff]"><a href="#">Privacy</a></li>
-                                <li className="hover:text-[#fff]"><a href="#">Terms</a></li>
-                                <li className="hover:text-[#fff]"><a href="#">Guidelines</a></li>
+                            <h1 className="text-[#CBD5E1] uppercase text-sm font-semibold mb-2">Legal</h1>
+                            <ul className="hover:cursor-pointer py-1 space-y-2 text-xs">
+                                <li className="hover:text-white"><a href="#">Cookies</a></li>
+                                <li className="hover:text-white"><a href="#">Privacy</a></li>
+                                <li className="hover:text-white"><a href="#">Terms</a></li>
+                                <li className="hover:text-white"><a href="#">Guidelines</a></li>
                             </ul>
                         </div>
 
                         <div className="mb-10">
-                            <p className="text-[#CBD5E1] uppercase text-[18px] font-semibold mb-1">Subscribe to our newsletter</p>
-                            <p className="text-[#94A3B8] text-[17px]">To get a monthly roundup of our latest lessons.</p>
+                            <p className="text-[#CBD5E1] uppercase text-sm font-semibold mb-1">Subscribe to our newsletter</p>
+                            <p className="text-[#94A3B8] text-xs">To get a monthly roundup of our latest lessons.</p>
                             <div className="py-3">
                                 <input type="text" name="email" placeholder="Email Address"
-                                    className="w-[63%] rounded-md text-[#E3E3E3] py-[13px] px-2 bg-[#0F172A]
-                        border border-[#1E293B] focus:border-[#4F46E5] outline-none" />
+                                    className="w-[63%] rounded-l text-[#E3E3E3] py-2 px-2 bg-[#0F172A]
+                        border border-[#1E293B] focus:border-[#4F46E5] outline-none text-sm" />
 
-                                <button className="text-white bg-[#634DBA] py-[13px] px-5 rounded-md">Subscribe</button>
+                                <button className="text-white border border-[#1E293B] py-2 px-2 rounded-r border-l-0 text-sm">Subscribe</button>
                             </div>
                         </div>
                     </div>
