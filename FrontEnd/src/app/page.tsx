@@ -9,7 +9,7 @@ export default function Home() {
       <div>
         <div className="bg-[#080E1C]">
           {/* header area */}
-          <header className="bg-[#231D4C] relative overflow-hidden max-w-[1920px] mb-5 mx-auto">
+          <div className="bg-[#231D4C] relative overflow-hidden max-w-[1920px] mb-5 mx-auto">
             {/* navbar area */}
             <Header />
             {/* slider area */}
@@ -135,7 +135,7 @@ export default function Home() {
                 </div>
               </div>
             </section>
-          </header>
+          </div>
 
           {/* series area */}
 
