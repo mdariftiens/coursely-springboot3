@@ -140,11 +140,14 @@ export default function Home() {
           {/* series area */}
 
           <main className="container mx-auto px-3 lg:px-5 py-10">
-            <h1 className="text-black text-4xl font-bold">Series.</h1>
+            <h1 className="text-white text-4xl font-bold mb-1">Series.</h1>
             <div className="lg:flex items-center justify-between">
-              <h3 className="text-[#4F46E5] text-xl font-semibold">Step-By-Step Learning</h3>
-              <h3 className="text-[#020617] text-xl font-semibold items-center">Browse All Series <i
-                className="fa-solid fa-arrow-right"></i></h3>
+              <h3 className="text-xl font-heading font-black text-[#4F46E5] mb-2">Step-By-Step Learning</h3>
+              <h3 className="relative text-[#94a3b8] text-sm font-semibold inline-block
+                            after:block after:absolute after:bottom-0 after:left-1/2 after:w-0 after:h-[2px] after:bg-[#94a3b8]
+                            after:transition-all after:duration-300 after:-translate-x-1/2
+                            hover:after:w-full cursor-pointer">Browse All Series <i
+                  className="fa-solid fa-arrow-right"></i></h3>
             </div>
 
             <div className="md:flex items-stretch justify-between gap-8 gap-x-8">
@@ -156,7 +159,7 @@ export default function Home() {
                     <h3><i className="fa-solid fa-graduation-cap"></i> 37 Lessons</h3>
                     <h3><i className="fa-solid fa-clock"></i> 4h 37m</h3>
                   </div>
-                  <p className="text-[#94a3b8] text-sm lg:text-base">In this series, we&apos;ll ad a API, using Opaque Access
+                  <p className="text-[#94a3b8] text-sm text-justify">In this series, we&apos;ll ad a API, using Opaque Access
                     Tokens for
                     authentication, to a preexisting web application. We well implement dual-guard authentication,
                     add a token management panel, and authentication our API directly with an organization model!
@@ -164,24 +167,31 @@ export default function Home() {
                 </div>
                 <div className="lg:basis-1/2 py-2 hidden lg:block">
                   <h4 className="text-[#94a3b8] uppercase font-semibold text-sm mb-3">latest form this series</h4>
-                  <div className="flex items-center gap-5 text-[12px] text-[#94a3b8] mb-1">
-                    <h5>Lesson 6.1</h5>
-                    <span>.</span>
-                    <h5>Aug 07</h5>
+                  <div>
+                    <div className="flex items-center gap-5 text-[12px] text-[#94a3b8] mb-1">
+                      <h5>Lesson 6.1</h5>
+                      <span>.</span>
+                      <h5>Aug 07</h5>
+                    </div>
+                    <h4 className="capitalize font-bold text-white text-xs mb-3">Advanced String filtering</h4>
                   </div>
-                  <h4 className="capitalize font-bold text-[#fff] text-sm mb-3">Advanced String filtering</h4>
-                  <div className="flex items-center gap-5 text-[12px] text-[#94a3b8] mb-1">
-                    <h5>Lesson 6.0</h5>
-                    <span>.</span>
-                    <h5>Aug 05</h5>
+                  <div>
+                    <div className="flex items-center gap-5 text-[12px] text-[#94a3b8] mb-1">
+                      <h5>Lesson 6.0</h5>
+                      <span>.</span>
+                      <h5>Aug 05</h5>
+                    </div>
+                    <h4 className="capitalize font-bold text-white text-xs mb-3">Basic course search & filter</h4>
                   </div>
-                  <h4 className="capitalize font-bold text-[#fff] text-sm mb-3">Basic course search & filter</h4>
-                  <div className="flex items-center gap-5 text-[12px] text-[#94a3b8] mb-1">
-                    <h5>Lesson 5.9</h5>
-                    <span>.</span>
-                    <h5>Jul 31</h5>
+                  <div>
+                    <div className="flex items-center gap-5 text-[12px] text-[#94a3b8] mb-1">
+                      <h5>Lesson 5.9</h5>
+                      <span>.</span>
+                      <h5>Jul 31</h5>
+                    </div>
+                    <h4 className="capitalize font-bold text-white text-xs mb-3">Getting a Module&apos;s Lessons</h4>
                   </div>
-                  <h4 className="capitalize font-bold text-[#fff] text-sm mb-3">Getting a Module&apos;s Lessons</h4>
+
                 </div>
               </div>
               <div
@@ -191,7 +201,7 @@ export default function Home() {
                   <h3><i className="fa-solid fa-graduation-cap"></i> 23 Lessons</h3>
                   <h3><i className="fa-solid fa-clock"></i> 2h 43m</h3>
                 </div>
-                <p className="text-[#94a3b8] text-sm lg:text-base">Quick tips, lessons, and screencasts covering specific
+                <p className="text-[#94a3b8] text-[14px] text-justify">Quick tips, lessons, and screencasts covering specific
                   topics on AdonisJS.
                 </p>
               </div>
@@ -205,7 +215,7 @@ export default function Home() {
                   <h3><i className="fa-solid fa-graduation-cap"></i> 91 Lessons</h3>
                   <h3><i className="fa-solid fa-clock"></i> 14h 5m</h3>
                 </div>
-                <p className="text-[#94a3b8] text-sm lg:text-base">We well how to use InertiaJs with AdonisJS 6 to build a
+                <p className="text-[#94a3b8] text-sm text-justify">We well how to use InertiaJs with AdonisJS 6 to build a
                   feature-complete
                   application, called plotMyCourse. Our application will use server-side rendering (SSR), Vue 3,
                   Shan-cn-Vue. It will feature organizations, drag-and-drop and lots of forms</p>
@@ -218,33 +228,39 @@ export default function Home() {
                     <h3><i className="fa-solid fa-graduation-cap"></i> 9 Lessons</h3>
                     <h3><i className="fa-solid fa-clock"></i> 2h 59m</h3>
                   </div>
-                  <p className="text-[#94a3b8] text-sm lg:text-base">In this series, we&apos;ll highlight various features and
+                  <p className="text-[#94a3b8] text-sm text-justify">In this series, we&apos;ll highlight various features and
                     functionalities in AdonisJS you can complete in about 30 minutes or less.</p>
                 </div>
                 <div className="lg:basis-1/2 py-2 hidden lg:block">
                   <h4 className="text-[#94a3b8] uppercase font-semibold text-sm mb-3">latest form this series</h4>
-                  <div className="flex items-center gap-10 my-1 text-[#94a3b8] text-sm">
-                    <h4>Lesson 9.0</h4>
-                    <span>.</span>
-                    <h4>Nov 6, 24</h4>
+                  <div>
+                    <div className="flex items-center gap-10 my-1 text-[#94a3b8] text-sm">
+                      <h4>Lesson 9.0</h4>
+                      <span>.</span>
+                      <h4>Nov 6, 24</h4>
+                    </div>
+                    <h4 className="capitalize font-bold text-white text-xs mb-3">How To Add Social Authentication
+                      with
+                      AdonisJS Ally and Google</h4>
                   </div>
-                  <h4 className="capitalize font-bold text-[#fff] text-sm mb-3">How To Add Social Authentication
-                    with
-                    AdonisJS Ally and Google</h4>
-                  <div className="flex items-center gap-5 my-1 text-[#94a3b8] text-sm">
-                    <h4>Lesson 8.0</h4>
-                    <span>.</span>
-                    <h4>Aug 02, 24</h4>
+                  <div>
+                    <div className="flex items-center gap-5 my-1 text-[#94a3b8] text-sm">
+                      <h4>Lesson 8.0</h4>
+                      <span>.</span>
+                      <h4>Aug 02, 24</h4>
+                    </div>
+                    <h4 className="capitalize font-bold text-white text-xs mb-3">How to make a simple AdonisJS 6 Package
+                    </h4>
                   </div>
-                  <h4 className="capitalize font-bold text-[#fff] text-sm mb-3">How to make a simple AdonisJS 6 Package
-                  </h4>
-                  <div className="flex items-center gap-5 my-1 text-[#94a3b8] text-sm">
-                    <h4>Lesson 7.0</h4>
-                    <span>.</span>
-                    <h4>Jul 22, 24</h4>
+                  <div>
+                    <div className="flex items-center gap-5 my-1 text-[#94a3b8] text-sm">
+                      <h4>Lesson 7.0</h4>
+                      <span>.</span>
+                      <h4>Jul 22, 24</h4>
+                    </div>
+                    <h4 className="capitalize font-bold text-white text-xs mb-3">Three Approaches for organizing your
+                      AdonisJS Business Logic Operations.</h4>
                   </div>
-                  <h4 className="capitalize font-bold text-[#fff] text-sm mb-3">Three Approaches for organizing your
-                    AdonisJS Business Logic Operations.</h4>
                 </div>
               </div>
             </div>
@@ -258,7 +274,7 @@ export default function Home() {
                     <h3><i className="fa-solid fa-graduation-cap"></i> 113 Lessons</h3>
                     <h3><i className="fa-solid fa-clock"></i> 14h 11m</h3>
                   </div>
-                  <p className="text-[#94a3b8] text-sm lg:text-base">In this series, we&apos;ll learn AdonisJS 6 Step-By-Step
+                  <p className="text-[#94a3b8] text-sm text-justify">In this series, we&apos;ll learn AdonisJS 6 Step-By-Step
                     in a
                     beginner-friendly way. Covering topics like routing, controllers, services, EdgeJS, Lucid ORM,
                     forms, filtering, authentication etc.</p>
@@ -270,20 +286,20 @@ export default function Home() {
                     <span>.</span>
                     <h4>Jun 29, 24</h4>
                   </div>
-                  <h4 className="uppercase font-bold mb-5 text-[#0F172A] text-xs">Thank you for watching!</h4>
-                  <div className="flex items-center gap-5">
+                  <h4 className="font-bold mb-5 text-white text-xs">Thank you for watching!</h4>
+                  <div className="flex items-center text-[#94a3b8] gap-5">
                     <h4>Lesson 11.10</h4>
                     <span>.</span>
                     <h4>Jun 29, 24</h4>
                   </div>
-                  <h4 className="uppercase font-bold mb-5 text-[#0F172A] text-xs">Allowing Admins to delete Movies and
+                  <h4 className="font-bold mb-5 text-white text-xs">Allowing Admins to delete Movies and
                     their Relationships.</h4>
-                  <div className="flex items-center gap-5">
+                  <div className="flex items-center text-[#94a3b8] gap-5">
                     <h4>Lesson 11.09</h4>
                     <span>.</span>
                     <h4>Jun 26, 24</h4>
                   </div>
-                  <h4 className="uppercase font-bold mb-5 text-[#0F172A] text-xs">Managed Transactions and Syncing Movie
+                  <h4 className="font-bold mb-5 text-white text-xs">Managed Transactions and Syncing Movie
                     cast Members.</h4>
                 </div>
               </div>
@@ -294,7 +310,7 @@ export default function Home() {
                   <h3><i className="fa-solid fa-graduation-cap"></i> 25 Lessons</h3>
                   <h3><i className="fa-solid fa-clock"></i> 1h 42m</h3>
                 </div>
-                <p className="text-[#94a3b8] text-sm lg:text-base">In this series, we&apos;ll take a deep dive into EdgeJS
+                <p className="text-[#94a3b8] text-sm text-justify">In this series, we&apos;ll take a deep dive into EdgeJS
                   Components by creating our
                   own reusable components from the PinesUI component library, built with tailwindcss and ApineJS.</p>
               </div>
@@ -305,11 +321,14 @@ export default function Home() {
 
           <section id="topics_area">
             <div className="container mx-auto px-3 lg:px-5 py-10">
-              <h1 className="text-[#fff] text-4xl font-bold">Topics.</h1>
+              <h1 className="text-white text-4xl font-bold mb-1">Topics.</h1>
               <div className="lg:flex items-center justify-between">
-                <h3 className="text-[#4F46E5] text-xl font-semibold uppercase">Subject Based Learning</h3>
-                <h3 className="text-[#020617] text-xl font-semibold items-center">Browse All Topics <i
-                  className="fa-solid fa-arrow-right"></i></h3>
+                <h3 className="text-xl font-heading font-black text-[#4F46E5] mb-2">Subject Based Learning</h3>
+                <h3 className="relative text-[#94a3b8] text-sm font-semibold inline-block
+                            after:block after:absolute after:bottom-0 after:left-1/2 after:w-0 after:h-[2px] after:bg-[#94a3b8]
+                            after:transition-all after:duration-300 after:-translate-x-1/2
+                            hover:after:w-full cursor-pointer">Browse All Topics <i
+                    className="fa-solid fa-arrow-right"></i></h3>
               </div>
 
               <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
@@ -480,10 +499,10 @@ export default function Home() {
 
           <section className="lesson_area">
             <div className="container mx-auto px-3 lg:px-5 py-10">
-              <h1 className="text-2xl md:text-3xl xl:text-4xl font-heading font-black tracking-tight text-white">Lessons.
+              <h1 className="text-2xl md:text-3xl xl:text-4xl font-heading font-black tracking-tight text-white mb-1">Lessons.
               </h1>
               <div className="lg:flex items-center justify-between">
-                <h3 className="text-xl font-heading font-black text-[#818cf8] ">Here&apos;s What&apos;s New</h3>
+                <h3 className="text-xl font-heading font-black text-[#4F46E5] mb-2">Here&apos;s What&apos;s New</h3>
                 <h3
                   className="relative text-[#94a3b8] text-sm font-semibold inline-block
                             after:block after:absolute after:bottom-0 after:left-1/2 after:w-0 after:h-[2px] after:bg-[#94a3b8]
@@ -1134,8 +1153,8 @@ export default function Home() {
           {/* footer area */}
 
           <Footer />
-        </div>
-      </div>
+        </div >
+      </div >
     </>
   );
 }
