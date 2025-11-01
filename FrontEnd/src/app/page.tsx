@@ -9,7 +9,7 @@ export default function Home() {
       <div>
         <div className="bg-[#080E1C]">
           {/* header area */}
-          <header className="bg-[#231D4C] relative overflow-hidden max-w-[1920px] mb-24 mx-auto">
+          <header className="bg-[#231D4C] relative overflow-hidden max-w-[1920px] mb-5 mx-auto">
             {/* navbar area */}
             <Header />
             {/* slider area */}
@@ -27,7 +27,7 @@ export default function Home() {
                 </div>
 
                 <div className="gap-5">
-                  <button className="bg-white px-12 py-2 rounded-md text-black">Sign up for free</button>
+                  <button className="bg-white px-12 py-2 rounded-md text-black mr-5">Sign up for free</button>
                   <button
                     className="bg-transparent border border-white px-12 py-2 rounded-md text-white hover:cursor-pointer hover:bg-white hover:text-black transition duration-500 ease-out items-center font-semibold">
                     New to AdonisJS? start here <i className="fa-solid fa-arrow-right"></i>
@@ -153,57 +153,64 @@ export default function Home() {
             <div className="md:flex items-stretch justify-between gap-8 gap-x-8">
               <div
                 className="bg-[#0F172A] flex gap-5 p-5 rounded-md lg:basis-2/3 hover:cursor-pointer border-2 border-transparent hover:border-[#1e293b]">
-                <div className="lg:basis-1/2">
-                  <h1 className="text-[#fff] text-lg font-bold">Adding an API to an AdonisJS Web App</h1>
-                  <div className="flex items-center gap-10 my-1 text-[#94a3b8] text-sm">
-                    <h3><i className="fa-solid fa-graduation-cap"></i> 37 Lessons</h3>
-                    <h3><i className="fa-solid fa-clock"></i> 4h 37m</h3>
-                  </div>
-                  <p className="text-[#94a3b8] text-sm text-justify">In this series, we&apos;ll ad a API, using Opaque Access
-                    Tokens for
-                    authentication, to a preexisting web application. We well implement dual-guard authentication,
-                    add a token management panel, and authentication our API directly with an organization model!
-                  </p>
-                </div>
-                <div className="lg:basis-1/2 py-2 hidden lg:block">
-                  <h4 className="text-[#94a3b8] uppercase font-semibold text-sm mb-3">latest form this series</h4>
-                  <div>
-                    <div className="flex items-center gap-5 text-[12px] text-[#94a3b8] mb-1">
-                      <h5>Lesson 6.1</h5>
-                      <span>.</span>
-                      <h5>Aug 07</h5>
-                    </div>
-                    <h4 className="capitalize font-bold text-white text-xs mb-3">Advanced String filtering</h4>
-                  </div>
-                  <div>
-                    <div className="flex items-center gap-5 text-[12px] text-[#94a3b8] mb-1">
-                      <h5>Lesson 6.0</h5>
-                      <span>.</span>
-                      <h5>Aug 05</h5>
-                    </div>
-                    <h4 className="capitalize font-bold text-white text-xs mb-3">Basic course search & filter</h4>
-                  </div>
-                  <div>
-                    <div className="flex items-center gap-5 text-[12px] text-[#94a3b8] mb-1">
-                      <h5>Lesson 5.9</h5>
-                      <span>.</span>
-                      <h5>Jul 31</h5>
-                    </div>
-                    <h4 className="capitalize font-bold text-white text-xs mb-3">Getting a Module&apos;s Lessons</h4>
-                  </div>
 
+                <div className="lg:basis-1/2">
+                  <Link href="/series/1">
+                    <h1 className="text-white text-lg font-bold">Adding an API to an AdonisJS Web App</h1>
+                    <div className="flex items-center gap-10 my-1 text-[#94a3b8] text-sm">
+                      <h3><i className="fa-solid fa-graduation-cap"></i> 37 Lessons</h3>
+                      <h3><i className="fa-solid fa-clock"></i> 4h 37m</h3>
+                    </div>
+                    <p className="text-[#94a3b8] text-sm text-justify">In this series, we&apos;ll ad a API, using Opaque Access
+                      Tokens for
+                      authentication, to a preexisting web application. We well implement dual-guard authentication,
+                      add a token management panel, and authentication our API directly with an organization model!
+                    </p>
+                  </Link>
+                </div>
+
+                <div className="lg:basis-1/2 py-2 hidden lg:block">
+                  <Link href="/series/1">
+                    <h4 className="text-[#94a3b8] uppercase font-semibold text-sm mb-3">latest form this series</h4>
+                    <div>
+                      <div className="flex items-center gap-5 text-[12px] text-[#94a3b8] mb-1">
+                        <h5>Lesson 6.1</h5>
+                        <span>.</span>
+                        <h5>Aug 07</h5>
+                      </div>
+                      <h4 className="capitalize font-bold text-white text-xs mb-3">Advanced String filtering</h4>
+                    </div>
+                    <div>
+                      <div className="flex items-center gap-5 text-[12px] text-[#94a3b8] mb-1">
+                        <h5>Lesson 6.0</h5>
+                        <span>.</span>
+                        <h5>Aug 05</h5>
+                      </div>
+                      <h4 className="capitalize font-bold text-white text-xs mb-3">Basic course search & filter</h4>
+                    </div>
+                    <div>
+                      <div className="flex items-center gap-5 text-[12px] text-[#94a3b8] mb-1">
+                        <h5>Lesson 5.9</h5>
+                        <span>.</span>
+                        <h5>Jul 31</h5>
+                      </div>
+                      <h4 className="capitalize font-bold text-white text-xs mb-3">Getting a Module&apos;s Lessons</h4>
+                    </div>
+                  </Link>
                 </div>
               </div>
               <div
                 className="bg-[#0F172A] lg:basis-1/3 p-5 my-5 lg:my-0 rounded-md lg:min-h-[300px] hover:cursor-pointer border-2 border-transparent hover:border-[#1e293b]">
-                <h4 className="text-[#fff] text-lg font-bold">AdonisJS Quick tip</h4>
-                <div className="flex items-center gap-5 my-1 text-[#94a3b8] text-sm">
-                  <h3><i className="fa-solid fa-graduation-cap"></i> 23 Lessons</h3>
-                  <h3><i className="fa-solid fa-clock"></i> 2h 43m</h3>
-                </div>
-                <p className="text-[#94a3b8] text-[14px] text-justify">Quick tips, lessons, and screencasts covering specific
-                  topics on AdonisJS.
-                </p>
+                <Link href="/series/1">
+                  <h4 className="text-white text-lg font-bold">AdonisJS Quick tip</h4>
+                  <div className="flex items-center gap-5 my-1 text-[#94a3b8] text-sm">
+                    <h3><i className="fa-solid fa-graduation-cap"></i> 23 Lessons</h3>
+                    <h3><i className="fa-solid fa-clock"></i> 2h 43m</h3>
+                  </div>
+                  <p className="text-[#94a3b8] text-[14px] text-justify">Quick tips, lessons, and screencasts covering specific
+                    topics on AdonisJS.
+                  </p>
+                </Link>
               </div>
             </div>
 

@@ -53,7 +53,7 @@ const Footer = () => {
                                     className="w-[63%] rounded-l text-[#E3E3E3] py-2 px-2 bg-[#0F172A]
                         border border-[#1E293B] focus:border-[#4F46E5] outline-none text-sm" />
 
-                                <button className="text-white border border-[#1E293B] py-2 px-2 rounded-r border-l-0 text-sm">Subscribe</button>
+                                <button className="text-white border border-[#1E293B] py-2 px-2 rounded-r border-l-0 text-sm hover:bg-[#4F46E5] cursor-pointer">Subscribe</button>
                             </div>
                         </div>
                     </div>
