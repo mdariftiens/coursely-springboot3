@@ -1,0 +1,37 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{dashboard/layout}">
+<head>
+</head>
+<div layout:fragment="content">
+    <!-- header area -->
+    <div class="card">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h5 class="mb-0">Rules</h5>
+            <a class="btn btn-outline-primary" th:href="@{roles/create}">Create New Role</a>
+        </div>
+        <div class="table-responsive text-nowrap">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody class="table-border-bottom-0">
+                <tr th:each="role : ${roles}">
+                    <td th:text="${role.id}"></td>
+                    <td th:text="${role.name}"></td>
+                    <td>
+                        <a th:href="@{'/dashboard/roles/create/' + ${role.id}}">Edit</a> |
+                        <a th:href="@{'/roles/delete/' + ${role.id}}">Delete</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</html>
