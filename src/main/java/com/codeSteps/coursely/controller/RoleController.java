@@ -42,7 +42,10 @@ public class RoleController {
             Model model
     ) {
         if (result.hasErrors()) {
-            return "roles/create";
+            // Show ONLY first validation message
+            String firstError = result.getAllErrors().get(0).getDefaultMessage();
+            model.addAttribute("errorMessage", firstError);
+            return "dashboard/roles/create"; // return form with errors
         }
         roleService.save(roleDTO);
         return "redirect:/roles";
