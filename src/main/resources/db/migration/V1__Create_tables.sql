@@ -1,105 +1,47 @@
 -- Create roles table
-CREATE TABLE roles (
-    id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(255) NOT NULL UNIQUE
+CREATE TABLE roles (id BIGINT AUTO_INCREMENT PRIMARY KEY,name VARCHAR(255) NOT NULL UNIQUE
 );
 
 -- Create users table
-CREATE TABLE users (
-    id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(255) NOT NULL,
-    email VARCHAR(255) NOT NULL UNIQUE,
-    password VARCHAR(255) NOT NULL,
-    role_id BIGINT NOT NULL,
-    FOREIGN KEY (role_id) REFERENCES roles(id)
+CREATE TABLE users (id BIGINT AUTO_INCREMENT PRIMARY KEY,name VARCHAR(255) NOT NULL,email VARCHAR(255) NOT NULL UNIQUE,password VARCHAR(255) NOT NULL,role_id BIGINT NOT NULL,FOREIGN KEY (role_id) REFERENCES roles(id)
 );
 
 -- Create courses table
-CREATE TABLE courses (
-    id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    title VARCHAR(255),
-    description VARCHAR(2000),
-    price DOUBLE PRECISION,
-    is_free BOOLEAN,
-    uploaded_by BIGINT NOT NULL,
-    FOREIGN KEY (uploaded_by) REFERENCES users(id)
+CREATE TABLE courses (id BIGINT AUTO_INCREMENT PRIMARY KEY,title VARCHAR(255),description VARCHAR(2000),price DOUBLE PRECISION,is_free BOOLEAN,uploaded_by BIGINT NOT NULL,FOREIGN KEY (uploaded_by) REFERENCES users(id)
 );
 
 -- Create videos table
-CREATE TABLE videos (
-    id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    title VARCHAR(255),
-    url VARCHAR(255),
-    thumbnail_url VARCHAR(255),
-    price DOUBLE PRECISION,
-    is_free BOOLEAN,
-    storage_type VARCHAR(255),
-    duration INTEGER,
-    series INTEGER,
-    course_id BIGINT NOT NULL,
-    FOREIGN KEY (course_id) REFERENCES courses(id)
+CREATE TABLE videos (id BIGINT AUTO_INCREMENT PRIMARY KEY,title VARCHAR(255),url VARCHAR(255),thumbnail_url VARCHAR(255),price DOUBLE PRECISION,is_free BOOLEAN,storage_type VARCHAR(255),duration INTEGER,series INTEGER,course_id BIGINT NOT NULL,FOREIGN KEY (course_id) REFERENCES courses(id)
 );
 
 -- Create course_materials table
-CREATE TABLE course_materials (
-    id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    title VARCHAR(255),
-    file_url VARCHAR(255),
-    file_type VARCHAR(255),
-    uploaded_at TIMESTAMP,
-    course_id BIGINT NOT NULL,
-    FOREIGN KEY (course_id) REFERENCES courses(id)
+CREATE TABLE course_materials (id BIGINT AUTO_INCREMENT PRIMARY KEY,title VARCHAR(255),file_url VARCHAR(255),file_type VARCHAR(255),uploaded_at TIMESTAMP,course_id BIGINT NOT NULL,FOREIGN KEY (course_id) REFERENCES courses(id)
 );
 
 -- Create bundles table
-CREATE TABLE bundles (
-    id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    title VARCHAR(255),
-    description VARCHAR(2000),
-    price DOUBLE PRECISION
+CREATE TABLE bundles (id BIGINT AUTO_INCREMENT PRIMARY KEY,title VARCHAR(255),description VARCHAR(2000),price DOUBLE PRECISION
 );
 
--- Create bundle_courses table
 CREATE TABLE bundle_courses (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
     bundle_id BIGINT NOT NULL,
     course_id BIGINT NOT NULL,
     FOREIGN KEY (bundle_id) REFERENCES bundles(id),
     FOREIGN KEY (course_id) REFERENCES courses(id),
-    UNIQUE KEY unique_bundle_course (bundle_id, course_id)
+    CONSTRAINT unique_bundle_course UNIQUE (bundle_id, course_id)
 );
 
+
 -- Create purchases table
-CREATE TABLE purchases (
-    id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    user_id BIGINT NOT NULL,
-    purchase_type VARCHAR(255),
-    reference_id BIGINT,
-    amount DOUBLE PRECISION,
-    payment_status VARCHAR(255),
-    FOREIGN KEY (user_id) REFERENCES users(id)
+CREATE TABLE purchases (id BIGINT AUTO_INCREMENT PRIMARY KEY,user_id BIGINT NOT NULL,purchase_type VARCHAR(255),reference_id BIGINT,amount DOUBLE PRECISION,payment_status VARCHAR(255),FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
 -- Create payments table
-CREATE TABLE payments (
-    id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    amount DOUBLE PRECISION,
-    payment_method VARCHAR(255),
-    transaction_id VARCHAR(255),
-    purchase_id BIGINT NOT NULL UNIQUE,
-    FOREIGN KEY (purchase_id) REFERENCES purchases(id)
+CREATE TABLE payments (id BIGINT AUTO_INCREMENT PRIMARY KEY,amount DOUBLE PRECISION,payment_method VARCHAR(255),transaction_id VARCHAR(255),purchase_id BIGINT NOT NULL UNIQUE,FOREIGN KEY (purchase_id) REFERENCES purchases(id)
 );
 
 -- Create comments table
-CREATE TABLE comments (
-    id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    comment_text VARCHAR(1000),
-    user_id BIGINT NOT NULL,
-    course_id BIGINT,
-    video_id BIGINT,
-    FOREIGN KEY (user_id) REFERENCES users(id),
-    FOREIGN KEY (course_id) REFERENCES courses(id),
-    FOREIGN KEY (video_id) REFERENCES videos(id)
+CREATE TABLE comments (id BIGINT AUTO_INCREMENT PRIMARY KEY,comment_text VARCHAR(1000),user_id BIGINT NOT NULL,course_id BIGINT,video_id BIGINT,FOREIGN KEY (user_id) REFERENCES users(id),FOREIGN KEY (course_id) REFERENCES courses(id),FOREIGN KEY (video_id) REFERENCES videos(id)
 );
 
 -- Create indexes for better performance

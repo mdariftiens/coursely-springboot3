@@ -8,9 +8,4 @@ INSERT INTO purchases (user_id, purchase_type, reference_id, amount, payment_sta
 (8, 'BUNDLE', 2, 299.99, 'SUCCESS'),
 (9, 'VIDEO', 2, 9.99, 'SUCCESS'),
 (10, 'COURSE', 5, 89.99, 'SUCCESS'),
-(11, 'BUNDLE', 3, 149.99, 'SUCCESS'),
--- Continuing with 90 more purchases...
-(12, 'VIDEO', 3, 9.99, 'SUCCESS'),
-(13, 'COURSE', 6, 69.99, 'SUCCESS'),
--- ... (90 more rows following the same pattern)
-(100, 'COURSE', 10, 0.00, 'SUCCESS');
+(11, 'BUNDLE', 3, 149.99, 'SUCCESS');
