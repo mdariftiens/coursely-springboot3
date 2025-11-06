@@ -1,0 +1,77 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{dashboard/layout}">
+
+<head>
+    <title>Create Bundle</title>
+</head>
+<div layout:fragment="content">
+    <div class="card">
+        <div class="col-xl">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">Create New Bundle</h5>
+                    <a class="btn btn-outline-primary" th:href="@{/bundles}">Back</a>
+                </div>
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <form th:action="@{/bundles/create}" th:object="${bundle}" method="post">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="title" class="form-label">Title</label>
+                                        <input type="text" class="form-control" id="title" th:field="*{title}" required
+                                            maxlength="255">
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="price" class="form-label">Price ($)</label>
+                                        <input type="number" class="form-control" id="price" th:field="*{price}"
+                                            required min="0" step="0.01">
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="description" class="form-label">Description</label>
+                                        <textarea class="form-control" id="description" th:field="*{description}"
+                                            rows="3"></textarea>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label class="form-label">Select Courses</label>
+                                        <div class="table-responsive" style="max-height: 300px; overflow-y: auto;">
+                                            <table class="table table-sm">
+                                                <tbody>
+                                                    <tr th:each="course : ${courses}">
+                                                        <td>
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="checkbox"
+                                                                    th:value="${course.id}" th:field="*{courseIds}">
+                                                                <label class="form-check-label"
+                                                                    th:text="${course.title}">
+                                                                    Course Title
+                                                                </label>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mt-4">
+                                <button type="submit" class="btn btn-primary me-2">Create Bundle</button>
+                                <a href="/dashboard/bundles" class="btn btn-secondary">Cancel</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</html>
