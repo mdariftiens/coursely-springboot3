@@ -61,23 +61,24 @@ public class BundleService {
     private void updateBundleFromDTO(Bundle bundle, BundleDTO dto) {
         bundle.setTitle(dto.getTitle());
         bundle.setDescription(dto.getDescription());
-        if (bundle.getPrice() != null) {
-            dto.setPrice(bundle.getPrice());
-        } else {
-            dto.setPrice(null);
-        }
+        bundle.setPrice(dto.getPrice());
 
-        if (bundle.getBundleCourses() != null && !bundle.getBundleCourses().isEmpty()) {
-            List<Long> ids = bundle.getBundleCourses().stream()
-                    // each BundleCourse should have getCourse() -> Course with getId()
-                    .map(BundleCourse::getCourse) // adjust if method name differs
-                    .filter(Objects::nonNull)
-                    .map(course -> course.getId())
-                    .filter(Objects::nonNull)
+        // Convert course IDs to BundleCourse entities
+        if (dto.getCourseIds() != null && !dto.getCourseIds().isEmpty()) {
+            List<BundleCourse> bundleCourses = dto.getCourseIds().stream()
+                    .map(courseId -> courseRepository.findById(courseId))
+                    .filter(Optional::isPresent)
+                    .map(Optional::get)
+                    .map(course -> {
+                        BundleCourse bundleCourse = new BundleCourse();
+                        bundleCourse.setBundle(bundle);
+                        bundleCourse.setCourse(course);
+                        return bundleCourse;
+                    })
                     .collect(Collectors.toList());
-            dto.setCourseIds(ids);
+            bundle.setBundleCourses(bundleCourses);
         } else {
-            dto.setCourseIds(Collections.emptyList());
+            bundle.setBundleCourses(Collections.emptyList());
         }
     }
 }
