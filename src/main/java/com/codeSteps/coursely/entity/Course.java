@@ -11,9 +11,9 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-//@Getter
-//@Setter
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+// @Getter
+// @Setter
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class Course {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -100,7 +100,7 @@ public class Course {
     }
 
     @ManyToOne
-    @JoinColumn(name = "uploaded_by", nullable = false)
+    @JoinColumn(name = "uploaded_by")
     private User uploadedBy; // Admin user
 
     @OneToMany(mappedBy = "course", cascade = CascadeType.ALL)
@@ -112,5 +112,3 @@ public class Course {
     @OneToMany(mappedBy = "course", cascade = CascadeType.ALL)
     private List<Comment> comments;
 }
-
-

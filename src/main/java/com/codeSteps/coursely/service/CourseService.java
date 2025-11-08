@@ -13,7 +13,7 @@ public class CourseService {
     private CourseRepository courseRepository;
 
     public List<Course> getAllCourses() {
-        List<Course> courses  = courseRepository.findAll();
+        List<Course> courses = courseRepository.findAll();
 
         courses.forEach(c -> System.out.println(c));
         return courses;
@@ -28,14 +28,14 @@ public class CourseService {
         return courseRepository.save(course);
     }
 
-//    public Course updateCourse(Long id, Course updated) {
-//        Course course = getCourseById(id);
-//        course.setTitle(updated.getTitle());
-//        course.setDescription(updated.getDescription());
-//        course.setPrice(updated.getPrice());
-//        //course.setThumbnail(updated.getThumbnail());
-//        return courseRepository.save(course);
-//    }
+    // public Course updateCourse(Long id, Course updated) {
+    // Course course = getCourseById(id);
+    // course.setTitle(updated.getTitle());
+    // course.setDescription(updated.getDescription());
+    // course.setPrice(updated.getPrice());
+    // //course.setThumbnail(updated.getThumbnail());
+    // return courseRepository.save(course);
+    // }
 
     public void deleteCourse(Long id) {
         courseRepository.deleteById(id);
