@@ -25,4 +25,3 @@ public class CourseMaterial {
     @JoinColumn(name = "course_id", nullable = false)
     private Course course;
 }
-

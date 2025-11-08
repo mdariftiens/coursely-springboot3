@@ -1,0 +1,59 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{dashboard/layout}">
+
+<head>
+    <title>Edit Course Material</title>
+</head>
+<div layout:fragment="content">
+    <div class="card">
+        <div class="col-xl">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">Edit Course Material</h5>
+                    <a class="btn btn-outline-primary" th:href="@{/materials}">Back</a>
+                </div>
+                <div class="card-body">
+                    <form th:action="@{/materials/edit/{id}(id=${material.id})}" method="post" th:object="${material}">
+                        <input type="hidden" th:field="*{id}">
+
+                        <div class="mb-3">
+                            <label for="title" class="form-label">Title</label>
+                            <input type="text" class="form-control" id="title" th:field="*{title}">
+                            <div class="text-danger" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="fileUrl" class="form-label">File Type</label>
+                            <input type="text" class="form-control" id="fileType" th:field="*{fileType}">
+                            <div class="text-danger" th:if="${#fields.hasErrors('fileType')}" th:errors="*{fileType}">
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="fileUrl" class="form-label">File URL</label>
+                            <input type="text" class="form-control" id="fileUrl" th:field="*{fileUrl}">
+                            <div class="text-danger" th:if="${#fields.hasErrors('fileUrl')}" th:errors="*{fileUrl}">
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="courseId" class="form-label">Course</label>
+                            <select class="form-select" id="courseId" th:field="*{courseId}">
+                                <option value="">Select a course</option>
+                                <option th:each="course : ${courses}" th:value="${course.id}" th:text="${course.title}">
+                                </option>
+                            </select>
+                            <div class="text-danger" th:if="${#fields.hasErrors('courseId')}" th:errors="*{courseId}">
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Update</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</html>

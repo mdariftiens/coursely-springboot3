@@ -7,6 +7,8 @@ import com.codeSteps.coursely.dto.CourseWebDTO;
 import com.codeSteps.coursely.entity.Course;
 import com.codeSteps.coursely.repository.CourseRepository;
 import java.util.Optional;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -73,6 +75,12 @@ public class CourseWebService {
         d.setPrice(course.getPrice());
         d.setFree(course.isFree());
         return d;
+    }
+
+    public List<CourseWebDTO> getAllCourses() {
+        return repository.findAll().stream()
+                .map(this::toDTO)
+                .collect(Collectors.toList());
     }
 
 }
