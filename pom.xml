@@ -161,6 +161,19 @@
 					</excludes>
 				</configuration>
 			</plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.2.5</version> <!-- Use a recent version -->
+                <configuration>
+                    <argLine>
+                        <!-- Ensure you have the mockito-core dependency in your project -->
+                        -javaagent:${settings.localRepository}/org/mockito/mockito-core/${mockito.version}/mockito-core-${mockito.version}.jar
+                        <!-- The following flag can also help suppress related warnings in some JDK versions -->
+                        -XX:+EnableDynamicAgentLoading
+                    </argLine>
+                </configuration>
+            </plugin>
 		</plugins>
 	</build>
 
