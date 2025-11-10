@@ -1,4 +1,4 @@
-package com.codeSteps.coursely.controller;
+package com.codeSteps.coursely.controller.web;
 
 import com.codeSteps.coursely.dto.RoleDTO;
 import com.codeSteps.coursely.service.RoleService;
