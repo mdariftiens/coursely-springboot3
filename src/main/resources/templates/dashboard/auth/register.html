@@ -72,26 +72,43 @@
                                 </a>
                             </div>
                             <!-- /Logo -->
-                            <h4 class="mb-2">Adventure starts here 🚀</h4>
-                            <p class="mb-4">Make your app management easy and fun!</p>
+                            <h4 class="mb-2">Start your learning journey 🚀</h4>
+                            <p class="mb-4">Create your account and begin learning today!</p>
 
-                            <form id="formAuthentication" class="mb-3" action="index.html" method="POST">
+                            <div th:if="${errorMessage}" class="alert alert-danger" role="alert">
+                                <span th:text="${errorMessage}"></span>
+                            </div>
+
+                            <form id="formAuthentication" class="mb-3" th:action="@{/dashboard/auth/register}"
+                                method="POST" th:object="${registerRequest}">
                                 <div class="mb-3">
-                                    <label for="username" class="form-label">Username</label>
-                                    <input type="text" class="form-control" id="username" name="username"
-                                        placeholder="Enter your username" autofocus />
+                                    <label for="name" class="form-label">Full Name</label>
+                                    <input type="text" class="form-control" id="name" name="name" th:field="*{name}"
+                                        placeholder="Enter your full name" autofocus />
                                 </div>
                                 <div class="mb-3">
                                     <label for="email" class="form-label">Email</label>
-                                    <input type="text" class="form-control" id="email" name="email"
+                                    <input type="email" class="form-control" id="email" name="email" th:field="*{email}"
                                         placeholder="Enter your email" />
                                 </div>
                                 <div class="mb-3 form-password-toggle">
                                     <label class="form-label" for="password">Password</label>
                                     <div class="input-group input-group-merge">
                                         <input type="password" id="password" class="form-control" name="password"
+                                            th:field="*{password}"
                                             placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
                                             aria-describedby="password" />
+                                        <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
+                                    </div>
+                                </div>
+
+                                <div class="mb-3 form-password-toggle">
+                                    <label class="form-label" for="confirmPassword">Confirm Password</label>
+                                    <div class="input-group input-group-merge">
+                                        <input type="password" id="confirmPassword" class="form-control"
+                                            name="confirmPassword" th:field="*{confirmPassword}"
+                                            placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
+                                            aria-describedby="confirmPassword" />
                                         <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
                                     </div>
                                 </div>
@@ -111,7 +128,7 @@
 
                             <p class="text-center">
                                 <span>Already have an account?</span>
-                                <a th:href="@{login}">
+                                <a th:href="@{/dashboard/auth/login}">
                                     <span>Sign in instead</span>
                                 </a>
                             </p>

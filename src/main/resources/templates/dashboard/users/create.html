@@ -11,10 +11,10 @@
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h5 class="mb-0">Create User</h5>
-                    <a class="btn btn-outline-primary" th:href="@{/users}">Back</a>
+                    <a class="btn btn-outline-primary" th:href="@{/dashboard/users}">Back</a>
                 </div>
                 <div class="card-body">
-                    <form th:action="@{/users/create}" th:object="${user}" method="post">
+                    <form th:action="@{/dashboard/users/create}" th:object="${user}" method="post">
                         <div class="mb-3">
                             <label for="name" class="form-label">Name</label>
                             <input type="text" class="form-control" id="name" th:field="*{name}" required

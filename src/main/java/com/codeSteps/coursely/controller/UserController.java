@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
-@RequestMapping("users")
+@RequestMapping("/dashboard/users")
 public class UserController {
 
     @Autowired
@@ -40,9 +40,9 @@ public class UserController {
             redirectAttributes.addFlashAttribute("successMessage", "User created successfully!");
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("errorMessage", "Error creating user: " + e.getMessage());
-            return "redirect:/users/create";
+            return "redirect:/dashboard/users/create";
         }
-        return "redirect:/users";
+        return "redirect:/dashboard/users";
     }
 
     @GetMapping("/edit/{id}")
@@ -72,7 +72,7 @@ public class UserController {
             redirectAttributes.addFlashAttribute("errorMessage", "Error updating user: " + e.getMessage());
             return "redirect:/dashboard/users/edit/" + id;
         }
-        return "redirect:/users";
+        return "redirect:/dashboard/users";
     }
 
     @PostMapping("/delete/{id}")
@@ -83,6 +83,6 @@ public class UserController {
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("errorMessage", "Error deleting user: " + e.getMessage());
         }
-        return "redirect:/users";
+        return "redirect:/dashboard/users";
     }
 }

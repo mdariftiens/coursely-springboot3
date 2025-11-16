@@ -8,7 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 @Controller
-@RequestMapping("/roles")
+@RequestMapping("/dashboard/roles")
 public class RoleController {
 
     private final RoleService roleService;
@@ -48,7 +48,7 @@ public class RoleController {
             return "dashboard/roles/create"; // return form with errors
         }
         roleService.save(roleDTO);
-        return "redirect:/roles";
+        return "redirect:/dashboard/roles";
     }
 
     @GetMapping("/edit/{id}")
@@ -61,12 +61,12 @@ public class RoleController {
     public String updateRole(@PathVariable Long id, @ModelAttribute("role") RoleDTO roleDTO) {
         roleDTO.setId(id);
         roleService.save(roleDTO);
-        return "redirect:/roles";
+        return "redirect:/dashboard/roles";
     }
 
-    @GetMapping("/delete/{id}")
+    @PostMapping("/delete/{id}")
     public String deleteRole(@PathVariable Long id) {
         roleService.delete(id);
-        return "redirect:/roles";
+        return "redirect:/dashboard/roles";
     }
 }

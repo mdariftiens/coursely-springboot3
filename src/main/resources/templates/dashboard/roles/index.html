@@ -9,7 +9,7 @@
     <div class="card">
         <div class="card-header d-flex justify-content-between align-items-center">
             <h5 class="mb-0">Rules</h5>
-            <a class="btn btn-outline-primary" th:href="@{roles/create}">Create New Role</a>
+            <a class="btn btn-outline-primary" th:href="@{/dashboard/roles/create}">Create New Role</a>
         </div>
         <div class="table-responsive text-nowrap">
             <table class="table table-striped">
@@ -25,8 +25,10 @@
                         <td th:text="${role.id}"></td>
                         <td th:text="${role.name}"></td>
                         <td>
-                            <a th:href="@{'/dashboard/roles/create/' + ${role.id}}">Edit</a> |
-                            <a th:href="@{'/roles/delete/' + ${role.id}}">Delete</a>
+                            <a th:href="@{'/dashboard/roles/edit/' + ${role.id}}" class="btn btn-sm btn-info">Edit</a>
+                            <form th:action="@{/dashboard/roles/delete/{id}(id=${role.id})}" method="post" style="display: inline;">
+                                <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Delete this role?');">Delete</button>
+                            </form>
                         </td>
                     </tr>
                 </tbody>

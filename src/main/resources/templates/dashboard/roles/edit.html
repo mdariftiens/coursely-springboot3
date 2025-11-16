@@ -1,28 +1,32 @@
 <!doctype html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{dashboard/layout}">
-<head><title>Create Role</title></head>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{dashboard/layout}">
+
+<head>
+    <title>Edit Role</title>
+</head>
 <div layout:fragment="content">
     <div class="card">
         <div class="card-header d-flex justify-content-between align-items-center">
-            <h5 class="mb-0">Create Role</h5>
+            <h5 class="mb-0">Edit Role</h5>
             <a class="btn btn-outline-primary" th:href="@{/dashboard/roles}">Back</a>
         </div>
         <div class="card mb-4">
             <div class="card-body">
-                <form th:action="@{/dashboard/roles}" method="post" th:object="${role}">
+                <form th:action="@{/dashboard/roles/update/{id}(id=${role.id})}" method="post" th:object="${role}">
+                    <input type="hidden" th:field="*{id}">
                     <div class="mb-3">
                         <label class="form-label" for="roleName">Role Name</label>
-                        <input type="text" th:field="*{name}" class="form-control" id="roleName" placeholder="Enter role name" 
-                            th:classappend="${#fields.hasErrors('name')} ? 'is-invalid'" required>
+                        <input type="text" th:field="*{name}" class="form-control" id="roleName"
+                            placeholder="Enter role name" th:classappend="${#fields.hasErrors('name')} ? 'is-invalid'"
+                            required>
                         <div th:if="${#fields.hasErrors('name')}" class="text-danger small" th:errors="*{name}"></div>
                         <div th:if="${errorMessage}" class="text-danger small mt-1">
                             <span th:text="${errorMessage}"></span>
                         </div>
                     </div>
                     <div class="mt-4">
-                        <button type="submit" class="btn btn-primary me-2">Create Role</button>
+                        <button type="submit" class="btn btn-primary me-2">Update Role</button>
                         <a href="/dashboard/roles" class="btn btn-secondary">Cancel</a>
                     </div>
                 </form>
@@ -30,5 +34,5 @@
         </div>
     </div>
 </div>
-</html>
 
+</html>

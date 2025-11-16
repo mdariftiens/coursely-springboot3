@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
-@RequestMapping("/course")
+@RequestMapping("/dashboard/course")
 public class CourseWebController {
 
     final private CourseRepository CourseRepository;
