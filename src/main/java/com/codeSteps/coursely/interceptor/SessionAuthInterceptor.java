@@ -20,7 +20,9 @@ public class SessionAuthInterceptor implements HandlerInterceptor {
         }
 
         // Check if user is authenticated for dashboard routes
-        if (requestURI.startsWith("/dashboard/")) {
+        // if (requestURI.startsWith("/dashboard/") || requestURI.equals("/dashboard"))
+        // {
+        if (requestURI.startsWith("/dashboard/") || requestURI.equals("/dashboard")) {
             // prevent browser caching of protected pages
             response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
             response.setHeader("Pragma", "no-cache");
@@ -29,7 +31,7 @@ public class SessionAuthInterceptor implements HandlerInterceptor {
             HttpSession session = request.getSession(false);
 
             if (session == null || session.getAttribute("userId") == null) {
-                response.sendRedirect("/dashboard/auth/login");
+                response.sendRedirect("/");
                 return false;
             }
         }

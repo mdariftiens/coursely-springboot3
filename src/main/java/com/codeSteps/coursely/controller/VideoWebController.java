@@ -61,7 +61,7 @@ public class VideoWebController {
         try {
             videoService.createVideo(videoDTO);
             redirectAttributes.addFlashAttribute("successMessage", "Video created successfully!");
-            return "redirect:/videos";
+            return "redirect:/dashboard/videos";
         } catch (Exception e) {
             model.addAttribute("courses", courseService.getAllCourses());
             model.addAttribute("errorMessage", "Error creating video: " + e.getMessage());
@@ -74,7 +74,7 @@ public class VideoWebController {
         var videoOpt = videoService.getVideoById(id);
         if (videoOpt.isEmpty()) {
             redirectAttributes.addFlashAttribute("errorMessage", "Video not found!");
-            return "redirect:/videos";
+            return "redirect:/dashboard/videos";
         }
 
         model.addAttribute("video", videoOpt.get());
@@ -99,11 +99,11 @@ public class VideoWebController {
             var updated = videoService.updateVideo(id, videoDTO);
             if (updated.isEmpty()) {
                 redirectAttributes.addFlashAttribute("errorMessage", "Video not found!");
-                return "redirect:/videos";
+                return "redirect:/dashboard/videos";
             }
 
             redirectAttributes.addFlashAttribute("successMessage", "Video updated successfully!");
-            return "redirect:/videos";
+            return "redirect:/dashboard/videos";
         } catch (Exception e) {
             model.addAttribute("courses", courseService.getAllCourses());
             model.addAttribute("errorMessage", "Error updating video: " + e.getMessage());
@@ -117,17 +117,17 @@ public class VideoWebController {
             var video = videoService.getVideoById(id);
             if (video.isEmpty()) {
                 redirectAttributes.addFlashAttribute("errorMessage", "Video not found!");
-                return "redirect:/videos";
+                return "redirect:/dashboard/videos";
             }
 
             Long courseId = video.get().getCourseId();
             videoService.deleteVideo(id);
             redirectAttributes.addFlashAttribute("successMessage", "Video deleted successfully!");
-            return "redirect:/videos";
+            return "redirect:/dashboard/videos";
 
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("errorMessage", "Error deleting video: " + e.getMessage());
-            return "redirect:/videos";
+            return "redirect:/dashboard/videos";
         }
     }
 }

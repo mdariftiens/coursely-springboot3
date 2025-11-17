@@ -52,7 +52,7 @@ public class CourseWebController {
         }
         courseWebService.save(courseWebDTO);
         redirectAttributes.addFlashAttribute("successMessage", "Course updated successfully!");
-        return "redirect:/course";
+        return "redirect:/dashboard/course";
     }
 
     @GetMapping("edit/{id}")
@@ -61,7 +61,7 @@ public class CourseWebController {
         var courseOpt = courseWebService.findById(id);
         if (courseOpt.isEmpty()) {
             redirectAttributes.addFlashAttribute("errorMessage", "Course not found!");
-            return "redirect:/course";
+            return "redirect:/dashboard/course";
         }
 
         model.addAttribute("course", courseOpt.get());
@@ -78,10 +78,10 @@ public class CourseWebController {
         var updated = courseWebService.update(courseWebDTO);
         if (updated.isEmpty()) {
             redirectAttributes.addFlashAttribute("errorMessage", "Course not found!");
-            return "redirect:/course";
+            return "redirect:/dashboard/course";
         }
         redirectAttributes.addFlashAttribute("successMessage", "Course updated successfully!");
-        return "redirect:/course";
+        return "redirect:/dashboard/course";
     }
 
     @GetMapping("delete/{id}")
@@ -95,7 +95,7 @@ public class CourseWebController {
             System.err.println("Failed to delete course: " + e.getMessage());
             redirectAttributes.addFlashAttribute("errorMessage", "Failed to delete course: " + e.getMessage());
         }
-        return "redirect:/course";
+        return "redirect:/dashboard/course";
     }
 
 }

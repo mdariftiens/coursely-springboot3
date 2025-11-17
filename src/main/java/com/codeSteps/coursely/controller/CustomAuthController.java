@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
-@RequestMapping("/dashboard/auth")
+@RequestMapping("/")
 public class CustomAuthController {
 
     @Autowired
@@ -25,7 +25,7 @@ public class CustomAuthController {
     /**
      * Show login form
      */
-    @GetMapping("/login")
+    @GetMapping("/")
     public String showLoginForm(Model model, HttpSession session) {
         // If already logged in, redirect to dashboard
         if (session.getAttribute("userId") != null) {
@@ -38,7 +38,7 @@ public class CustomAuthController {
     /**
      * Process login
      */
-    @PostMapping("/login")
+    @PostMapping("/")
     public String processLogin(@ModelAttribute("loginRequest") LoginRequest loginRequest,
             HttpSession session,
             Model model,
@@ -127,7 +127,7 @@ public class CustomAuthController {
 
             // Remove JSESSIONID cookie so browser won't send it again
             jakarta.servlet.http.Cookie cookie = new jakarta.servlet.http.Cookie("JSESSIONID", null);
-            cookie.setPath(request.getContextPath().isEmpty() ? "/" : request.getContextPath());
+            cookie.setPath("/");
             cookie.setMaxAge(0);
             response.addCookie(cookie);
         } catch (Exception e) {
@@ -135,7 +135,7 @@ public class CustomAuthController {
         }
 
         redirectAttributes.addFlashAttribute("successMessage", "Logged out successfully!");
-        return "redirect:/dashboard/auth/login";
+        return "redirect:/";
     }
 
     // Inner classes for request objects

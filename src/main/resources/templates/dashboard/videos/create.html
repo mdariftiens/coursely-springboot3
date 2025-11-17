@@ -14,7 +14,7 @@
                     <a class="btn btn-outline-primary" th:href="@{/dashboard/videos}">Back</a>
                 </div>
                 <div class="card-body">
-                    <form th:action="@{/videos/create}" method="post" th:object="${video}">
+                    <form th:action="@{/dashboard/videos/create}" method="post" th:object="${video}">
                         <div class="mb-3">
                             <label for="title" class="form-label">Title</label>
                             <input type="text" class="form-control" id="title" th:field="*{title}">

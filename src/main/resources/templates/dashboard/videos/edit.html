@@ -14,7 +14,7 @@
                     <a class="btn btn-outline-primary" th:href="@{/dashboard/videos}">Back</a>
                 </div>
                 <div class="card-body">
-                    <form th:action="@{/videos/edit/{id}(id=${video.id})}" method="post" th:object="${video}">
+                    <form th:action="@{/dashboard/videos/edit/{id}(id=${video.id})}" method="post" th:object="${video}">
                         <input type="hidden" th:field="*{id}">
 
                         <div class="mb-3">
