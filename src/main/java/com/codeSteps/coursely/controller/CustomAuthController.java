@@ -103,7 +103,7 @@ public class CustomAuthController {
 
             redirectAttributes.addFlashAttribute("successMessage",
                     "Registration successful! Please login with your credentials.");
-            return "redirect:/dashboard/auth/login";
+            return "redirect:/";
 
         } catch (Exception e) {
             model.addAttribute("errorMessage", "Registration failed: " + e.getMessage());

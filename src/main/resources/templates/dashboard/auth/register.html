@@ -79,8 +79,8 @@
                                 <span th:text="${errorMessage}"></span>
                             </div>
 
-                            <form id="formAuthentication" class="mb-3" th:action="@{/dashboard/auth/register}"
-                                method="POST" th:object="${registerRequest}">
+                            <form id="formAuthentication" class="mb-3" th:action="@{/register}" method="POST"
+                                th:object="${registerRequest}">
                                 <div class="mb-3">
                                     <label for="name" class="form-label">Full Name</label>
                                     <input type="text" class="form-control" id="name" name="name" th:field="*{name}"
@@ -128,7 +128,7 @@
 
                             <p class="text-center">
                                 <span>Already have an account?</span>
-                                <a th:href="@{/dashboard/auth/login}">
+                                <a th:href="@{/}">
                                     <span>Sign in instead</span>
                                 </a>
                             </p>
