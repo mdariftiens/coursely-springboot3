@@ -12,7 +12,6 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        // Allow the application's own session-based auth to handle login/logout.
         http
                 .authorizeHttpRequests(auth -> auth
                         .anyRequest().permitAll())
