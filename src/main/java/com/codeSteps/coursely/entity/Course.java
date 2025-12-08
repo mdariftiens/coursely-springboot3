@@ -1,5 +1,6 @@
 package com.codeSteps.coursely.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
@@ -104,6 +105,7 @@ public class Course {
     private User uploadedBy; // Admin user
 
     @OneToMany(mappedBy = "course", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Video> videos;
 
     @OneToMany(mappedBy = "course", cascade = CascadeType.ALL)

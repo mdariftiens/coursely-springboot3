@@ -17,7 +17,7 @@ public class LessonController {
     LessonService lessonService;
 
     @GetMapping
-    public ResponseEntity<List<Video>> getAllLesson(){
+    public ResponseEntity<List<Video>> getAllLesson() {
         List<Video> lessons = lessonService.allLesson();
         return ResponseEntity.ok(lessons);
     }

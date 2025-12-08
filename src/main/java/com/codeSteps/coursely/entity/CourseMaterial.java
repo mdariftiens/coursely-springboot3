@@ -3,6 +3,7 @@ package com.codeSteps.coursely.entity;
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDateTime;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 @Table(name = "course_materials")
@@ -23,5 +24,6 @@ public class CourseMaterial {
 
     @ManyToOne
     @JoinColumn(name = "course_id", nullable = false)
+    @JsonBackReference // ❗ Prevents infinite loop
     private Course course;
 }
